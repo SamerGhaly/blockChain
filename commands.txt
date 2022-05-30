@@ -1,0 +1,6 @@
+npx hardhat node     // --> for running the blockchain
+
+npx hardhat run scripts/anyscript.js --network localhost     // --> for running any script
+
+
+// the first cmd must be in seperate terminal
