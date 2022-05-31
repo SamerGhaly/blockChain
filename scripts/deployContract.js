@@ -3,8 +3,8 @@ const main = async () => {
   
   // console.log("Deploying contracts with account: ", deployer.address);
   // console.log("Account balance: ", accountBalance.toString());
-     const clinicContractFactory = await hre.ethers.getContractFactory("Clinic");
-    const clinicContract = await clinicContractFactory.deploy(5,"sameraaa");
+     const clinicContractFactory = await hre.ethers.getContractFactory("App");
+    const clinicContract = await clinicContractFactory.deploy();
     await clinicContract.deployed();
     console.log("Contract deployed to:", clinicContract);
   };  

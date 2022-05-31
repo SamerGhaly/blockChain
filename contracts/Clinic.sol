@@ -1,19 +1,22 @@
 pragma solidity ^0.8.4;
-
 import "hardhat/console.sol";
 
 contract Clinic {
+    uint public id ;
+    string public name;
+    uint public patientNum;
     struct Patient{
         uint id;
         string name;
         
     }
-    uint public id ;
-    string public name;
-    uint public patientNum;
+
     mapping(uint=>Patient) public patients;
 
-    constructor(uint id_,string memory name_)public {
+   
+
+
+    constructor(uint id_,string memory name_) {
         patientNum=0;
         id=id_;
         name=name_;
@@ -22,6 +25,7 @@ contract Clinic {
         console.log(msg.sender);
         
     }
+ 
 
     function changeName(string memory name_) public{
         name=name_;

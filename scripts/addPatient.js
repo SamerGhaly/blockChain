@@ -2,7 +2,7 @@ const main = async () => {
     const accounts = await hre.ethers.getSigners() 
     const clinic = await hre.ethers.getContractFactory("Clinic")
     const myClinic = await clinic.attach("0x5fbdb2315678afecb367f032d93f642f64180aa3")
-    await myClinic.addPatient(98,"samoooooraaaaaaaaaa")
+    await myClinic.addPatient(16142,"smr")
     // console.log(await myClinic.pat())
     // console.log(accounts[0].address)
     //console.log(msg.address)
