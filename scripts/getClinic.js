@@ -1,23 +1,12 @@
 const main = async () => {
     const accounts = await hre.ethers.getSigners() 
-    const clinic = await hre.ethers.getContractFactory("App")
-    const myClinic = await clinic.attach("0x5fbdb2315678afecb367f032d93f642f64180aa3")
-    const MM1={
-      bloodPressure:1,
-      pulse:2,
-      oxygen:3,
-      glucose:4
-    }
-    await myClinic.addPatient("smr",1999,80,170,"male",MM1,0)
-    await myClinic.addPatient("grg",1999,50,175,"male",MM1,0)
+    const app = await hre.ethers.getContractFactory("App")
+    const myApp = await app.attach("0x5fbdb2315678afecb367f032d93f642f64180aa3")
+    console.log(await myApp.connect(accounts[0]).getClinic(0));
+    // console.log(await myApp.getClinic(1));
+    // console.log(await myApp.getClinic(2));
 
-    await myClinic.addPatient("samoraa",1999,80,170,"male",MM1,1)
-    await myClinic.addPatient("georgetoo",1999,50,175,"male",MM1,1)
-
-
-
-
-    // console.log(await myClinic.pat())
+    //  console.log(await myClinic)
     // console.log(accounts[0].address)
     //console.log(msg.address)
 

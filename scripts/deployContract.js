@@ -6,7 +6,7 @@ const main = async () => {
      const clinicContractFactory = await hre.ethers.getContractFactory("App");
     const clinicContract = await clinicContractFactory.deploy();
     await clinicContract.deployed();
-    console.log("Contract deployed to:", clinicContract);
+    //console.log("Contract deployed to:", clinicContract);
   };  
   const runMain = async () => {
     try {

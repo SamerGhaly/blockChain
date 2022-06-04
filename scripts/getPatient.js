@@ -1,13 +1,21 @@
 const main = async () => {
     const accounts = await hre.ethers.getSigners() 
-    const clinic = await hre.ethers.getContractFactory("Clinic")
+    const clinic = await hre.ethers.getContractFactory("App")
     const myClinic = await clinic.attach("0x5fbdb2315678afecb367f032d93f642f64180aa3")
-    let pat=await myClinic.readPatient(1);
-    console.log(pat)
+    let pat1=await myClinic.connect(accounts[1]).getPatient(0,0);
+    let pat2=await myClinic.getPatient(1,0);
+    let pat3=await myClinic.getPatient(0,1);
+    let pat4=await myClinic.getPatient(1,1);
+ // console.log(Number(pat1[1]))
+
+    console.log(pat1)
+    console.log(pat2)
+    console.log(pat3)
+    console.log(pat4)
+
     // console.log(await myClinic.pat())
     // console.log(accounts[0].address)
-    //console.log(msg.address)
-
+    // console.log(msg.address)
   };
   
   const runMain = async () => {
