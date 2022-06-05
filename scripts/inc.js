@@ -19,7 +19,8 @@ const decrypt = (ciphertext,key) => {
     return decryptedData;
 
 };
-let en=encrypt("samer",'key')
-let ans =decrypt(en,'key')
-console.log(ans)
+// let en=encrypt("samer",'key')
+// let ans =decrypt(en,'key')
+// console.log(ans)
+module.exports={encrypt,decrypt} 
 
