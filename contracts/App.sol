@@ -109,6 +109,48 @@ contract App {
         return (patient.name,patient.yearOfBirth,patient.weight,patient.height,patient.sex,patient.MM,patient.visitsCnt);
     }
 
-    
+
+
+
+
+    function addVisit(       
+        uint  _patientAddress,
+        uint _clinicId,
+        string memory _reason,
+        MedicalMeasurement memory _MM,
+        string memory _prescription,
+        string memory _diagnosis) 
+        public {
+        Clinic storage clinic= clinics[_clinicId] ;
+        require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
+
+        //mapping(uint => Visit ) visits;
+        Patient storage patient=clinic.patients[_patientAddress];
+        patient.MM=_MM;
+        Visit storage visit =patient.visits[patient.visitsCnt];
+        visit.diagnosis=_diagnosis;
+        visit.patientAddress=_patientAddress;
+        visit.reason=_reason;
+        visit.prescription=_prescription;
+        visit.MM=_MM;
+        patient.visitsCnt++;
+
+    }
+
+
+    function getVisit(uint _visitId,uint  _patientAddress,uint _clinicAddress) external view returns (     
+        string memory ,
+        MedicalMeasurement memory ,
+        string memory ,
+        string memory  )  {
+        Clinic storage clinic= clinics[_clinicAddress] ;
+        require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
+
+        //mapping(uint => Visit ) visits;
+        Patient storage patient=clinic.patients[_patientAddress];
+        Visit storage visit=patient.visits[_visitId];
+        return (visit.reason,visit.MM,visit.prescription,visit.diagnosis);
+    }
+
 }
 
