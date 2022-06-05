@@ -3,14 +3,14 @@ const main = async () => {
     const clinic = await hre.ethers.getContractFactory("App")
     const myClinic = await clinic.attach("0x5fbdb2315678afecb367f032d93f642f64180aa3")
     const MM1={
-      bloodPressure:5,
-      pulse:6,
-      oxygen:7,
-      glucose:8
+      bloodPressure:10,
+      pulse:11,
+      oxygen:12,
+      glucose:13
     }
     let pat1=await myClinic.getPatient(0);
     console.log(pat1);
-    await myClinic.addVisit(0,"bawaseer",MM1,"prescription ..","diagnose ..")
+    await myClinic.addVisit(0,"bawaseer2",MM1,"prescription 2..","diagnose 3 ..")
     let pat2=await myClinic.getPatient(0);
     console.log(pat2);
 

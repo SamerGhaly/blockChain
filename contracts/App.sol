@@ -187,6 +187,20 @@ contract App {
         Visit storage visit=patient.visits[_visitId];
         return (visit.reason,visit.MM,visit.prescription,visit.diagnosis);
     }
+    function getAllVisits(uint  _patientAddress) external view returns (Visit[] memory)  {
+        address clinicAddress=msg.sender;
+        Clinic storage clinic= clinics[clinicAddress] ;
+        require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
+        Patient storage patient=clinic.patients[_patientAddress];
+        Visit[] memory ans = new Visit[](patient.visitsCnt);
+        for (uint i = 0; i <patient.visitsCnt ; i++) {
+            Visit storage visit=patient.visits[i];
+            ans[i] = visit;
+        }
+        return ans;
+        //mapping(uint => Visit ) visits;
+      //  return (patient.name,patient.yearOfBirth,patient.weight,patient.height,patient.sex,patient.MM,patient.visitsCnt);
+    }
 
 }
 
