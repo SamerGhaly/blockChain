@@ -8,10 +8,10 @@ const main = async () => {
       oxygen:7,
       glucose:8
     }
-    let pat1=await myClinic.getPatient(0,0);
+    let pat1=await myClinic.getPatient(0);
     console.log(pat1);
-    await myClinic.addVisit(0,0,"bawaseer",MM1,"prescription ..","diagnose ..")
-    let pat2=await myClinic.getPatient(0,0);
+    await myClinic.addVisit(0,"bawaseer",MM1,"prescription ..","diagnose ..")
+    let pat2=await myClinic.getPatient(0);
     console.log(pat2);
 
 

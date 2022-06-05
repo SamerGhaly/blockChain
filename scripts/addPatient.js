@@ -8,11 +8,11 @@ const main = async () => {
       oxygen:3,
       glucose:4
     }
-    await myClinic.addPatient("smr",1999,80,170,"male",MM1,0)
-    await myClinic.addPatient("grg",1999,50,175,"male",MM1,0)
+    await myClinic.addPatient("smr",1999,80,170,"male",MM1)
+    await myClinic.addPatient("grg",1999,50,175,"male",MM1)
 
-    await myClinic.addPatient("samoraa",1999,80,170,"male",MM1,1)
-    await myClinic.addPatient("georgetoo",1999,50,175,"male",MM1,1)
+    await myClinic.addPatient("samoraa",1999,80,170,"male",MM1)
+    await myClinic.addPatient("georgetoo",1999,50,175,"male",MM1)
 
 
 

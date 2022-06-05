@@ -4,8 +4,8 @@ import "hardhat/console.sol";
 
 contract App {
     uint public clinicsCnt;
-    mapping(uint => Clinic ) public clinics;
-    mapping(address=> uint) public accounts;
+    mapping(address => Clinic ) public clinics;
+    // mapping(address=> uint) public accounts;
     struct Clinic{
         // uint id;
         address senderAddress;
@@ -32,6 +32,14 @@ contract App {
         uint patientAddress;
     
     }
+    struct patientListElement{
+        uint patientId;
+        string name;
+        uint yearOfBirth;
+        uint weight;
+        uint height;
+        string sex;
+    }
     struct Patient{
         // uint id;
         string name;
@@ -41,7 +49,7 @@ contract App {
         string sex;
         MedicalMeasurement MM;
         uint visitsCnt;
-        uint clinicAddress;
+        address clinicAddress;
         mapping(uint => Visit ) visits;
 
     
@@ -54,17 +62,15 @@ contract App {
  
 
     function createClinic(string memory clinicName_) public{
-        Clinic storage clinic= clinics[clinicsCnt] ;
+        Clinic storage clinic= clinics[msg.sender] ;
         //=Clinic(1, clinicName_,1);
         clinic.name=clinicName_;
         clinic.senderAddress=msg.sender;
-        accounts[msg.sender]=clinicsCnt;
         clinic.patientsCnt=0;    
         clinicsCnt++;    
     }
     function getClinic() external view returns (string memory ,uint) {
-        uint clinicId=accounts[msg.sender];
-        Clinic storage clinic= clinics[clinicId] ;
+        Clinic storage clinic= clinics[msg.sender] ;
         require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
         return (clinic.name,clinic.patientsCnt); 
     }
@@ -77,9 +83,9 @@ contract App {
         uint patientWeight_,
         uint patientHeight_,
         string memory patientSex_,
-        MedicalMeasurement memory MM_,
-        uint clinicAddress) 
+        MedicalMeasurement memory MM_) 
         public {
+        address clinicAddress=msg.sender;
         Clinic storage clinic= clinics[clinicAddress] ;
         require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
 
@@ -95,7 +101,7 @@ contract App {
         clinic.patientsCnt++;
 
     }
-     function getPatient(uint id_,uint clinicAddress) external view returns (       
+     function getPatient(uint id_) external view returns (       
         string memory ,
         uint ,
         uint ,
@@ -103,6 +109,8 @@ contract App {
         string memory ,
         MedicalMeasurement memory ,
         uint )  {
+        address clinicAddress=msg.sender;
+
         Clinic storage clinic= clinics[clinicAddress] ;
         require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
 
@@ -114,16 +122,40 @@ contract App {
 
 
 
+    function getAllPatients() external view returns (patientListElement[] memory)  {
+        address clinicAddress=msg.sender;
+
+        Clinic storage clinic= clinics[clinicAddress] ;
+        require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
+        patientListElement[] memory ans = new patientListElement[](clinic.patientsCnt);
+        for (uint i = 0; i <clinic.patientsCnt ; i++) {
+            Patient storage patient=clinic.patients[i];
+            ans[i] = patientListElement(i,patient.name,patient.yearOfBirth,patient.weight,patient.height,patient.sex);
+        }
+        return ans;
+        //mapping(uint => Visit ) visits;
+      //  return (patient.name,patient.yearOfBirth,patient.weight,patient.height,patient.sex,patient.MM,patient.visitsCnt);
+    }
+
+
+
+
+
+
+
+
+
 
     function addVisit(       
         uint  _patientAddress,
-        uint _clinicId,
         string memory _reason,
         MedicalMeasurement memory _MM,
         string memory _prescription,
         string memory _diagnosis) 
         public {
-        Clinic storage clinic= clinics[_clinicId] ;
+        address clinicAddress=msg.sender;
+
+        Clinic storage clinic= clinics[clinicAddress] ;
         require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
 
         //mapping(uint => Visit ) visits;
@@ -140,12 +172,14 @@ contract App {
     }
 
 
-    function getVisit(uint _visitId,uint  _patientAddress,uint _clinicAddress) external view returns (     
+    function getVisit(uint _visitId,uint  _patientAddress) external view returns (     
         string memory ,
         MedicalMeasurement memory ,
         string memory ,
         string memory  )  {
-        Clinic storage clinic= clinics[_clinicAddress] ;
+        address clinicAddress=msg.sender;
+
+        Clinic storage clinic= clinics[clinicAddress] ;
         require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
 
         //mapping(uint => Visit ) visits;
