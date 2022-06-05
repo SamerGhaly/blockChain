@@ -17,10 +17,10 @@ contract App {
     }
 
     struct MedicalMeasurement{
-        uint bloodPressure;
-        uint  pulse;
-        uint  oxygen;
-        uint  glucose;
+        string bloodPressure;
+        string  pulse;
+        string  oxygen;
+        string  glucose;
     
     }
      
@@ -35,17 +35,17 @@ contract App {
     struct patientListElement{
         uint patientId;
         string name;
-        uint yearOfBirth;
-        uint weight;
-        uint height;
+        string yearOfBirth;
+        string weight;
+        string height;
         string sex;
     }
     struct Patient{
         // uint id;
         string name;
-        uint yearOfBirth;
-        uint weight;
-        uint height;
+        string yearOfBirth;
+        string weight;
+        string height;
         string sex;
         MedicalMeasurement MM;
         uint visitsCnt;
@@ -79,9 +79,9 @@ contract App {
     // }
     function addPatient(       
         string memory patientName_,
-        uint patientYearOfBirth_,
-        uint patientWeight_,
-        uint patientHeight_,
+        string memory patientYearOfBirth_,
+        string memory patientWeight_,
+        string memory patientHeight_,
         string memory patientSex_,
         MedicalMeasurement memory MM_) 
         public {
@@ -103,9 +103,9 @@ contract App {
     }
      function getPatient(uint id_) external view returns (       
         string memory ,
-        uint ,
-        uint ,
-        uint ,
+        string memory ,
+        string memory ,
+        string memory ,
         string memory ,
         MedicalMeasurement memory ,
         uint )  {
