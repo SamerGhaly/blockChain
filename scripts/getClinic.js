@@ -2,7 +2,7 @@ const main = async () => {
     const accounts = await hre.ethers.getSigners() 
     const app = await hre.ethers.getContractFactory("App")
     const myApp = await app.attach("0x5fbdb2315678afecb367f032d93f642f64180aa3")
-    console.log(await myApp.connect(accounts[0]).getClinic(0));
+    console.log(await myApp.getClinic());
     // console.log(await myApp.getClinic(1));
     // console.log(await myApp.getClinic(2));
 

@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 contract App {
     uint public clinicsCnt;
     mapping(uint => Clinic ) public clinics;
-
+    mapping(address=> uint) public accounts;
     struct Clinic{
         // uint id;
         address senderAddress;
@@ -58,11 +58,13 @@ contract App {
         //=Clinic(1, clinicName_,1);
         clinic.name=clinicName_;
         clinic.senderAddress=msg.sender;
+        accounts[msg.sender]=clinicsCnt;
         clinic.patientsCnt=0;    
         clinicsCnt++;    
     }
-    function getClinic(uint id) external view returns (string memory ,uint) {
-        Clinic storage clinic= clinics[id] ;
+    function getClinic() external view returns (string memory ,uint) {
+        uint clinicId=accounts[msg.sender];
+        Clinic storage clinic= clinics[clinicId] ;
         require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
         return (clinic.name,clinic.patientsCnt); 
     }
