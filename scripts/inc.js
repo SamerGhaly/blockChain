@@ -19,8 +19,13 @@ const decrypt = (ciphertext,key) => {
     return decryptedData;
 
 };
+const hash = (text) => {
+    var SHA256 = require("crypto-js/sha256");
+    return SHA256(text);
+
+};
 // let en=encrypt("samer",'key')
 // let ans =decrypt(en,'key')
 // console.log(ans)
-module.exports={encrypt,decrypt} 
+module.exports={encrypt,decrypt,hash} 
 

@@ -1,9 +1,15 @@
-const {encrypt}=require('./inc')
+const {encrypt,hash}=require('./inc')
 const main = async () => {
     const accounts = await hre.ethers.getSigners() 
     const app = await hre.ethers.getContractFactory("App")
     const myApp = await app.attach("0x5fbdb2315678afecb367f032d93f642f64180aa3")
-    await myApp.createClinic(encrypt("samoraa alone clinic","samer"));
+    let pass="samer"
+    let passHash=hash(pass)
+
+    await myApp.createClinic(encrypt("samoraa alone clinic",pass),passHash);
+    console.log(await myApp.validatePassHash(passHash))
+    console.log(await myApp.validatePassHash("samer"))
+
     // await myApp.createClinic("georgetoo alone clinic");
     // await myApp.createClinic("samoraa and georgetoo clinic");
     //  console.log(await myClinic)

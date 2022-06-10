@@ -12,7 +12,7 @@ contract App {
         string  name;
         uint patientsCnt;
         mapping(uint => Patient) patients;
-
+        string passHash;
         
     }
 
@@ -60,16 +60,22 @@ contract App {
         clinicsCnt=0;
     }
  
-
-    function createClinic(string memory clinicName_) public{
+    function validatePassHash(string memory passHash_) external view returns (bool){
+        Clinic storage clinic= clinics[msg.sender] ;
+        string memory passHash=clinic.passHash;
+        bool ans=keccak256(abi.encodePacked((passHash)))==keccak256(abi.encodePacked((passHash_)));
+        return (ans);
+    }
+    function createClinic(string memory clinicName_,string memory passHash_) public{
         Clinic storage clinic= clinics[msg.sender] ;
         //=Clinic(1, clinicName_,1);
         clinic.name=clinicName_;
         clinic.senderAddress=msg.sender;
         clinic.patientsCnt=0;    
-        clinicsCnt++;    
+        clinicsCnt++;  
+        clinic.passHash=passHash_;  
     }
-    function getClinic() external view returns (string memory ,uint) {
+    function getClinic() external view returns (string memory,uint ) {
         Clinic storage clinic= clinics[msg.sender] ;
         require(msg.sender==clinic.senderAddress,"unauthorized Clinic");
         return (clinic.name,clinic.patientsCnt); 
