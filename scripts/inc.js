@@ -21,7 +21,7 @@ const decrypt = (ciphertext,key) => {
 };
 const hash = (text) => {
     var SHA256 = require("crypto-js/sha256");
-    return SHA256(text);
+    return SHA256(text).toString();
 
 };
 // let en=encrypt("samer",'key')

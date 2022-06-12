@@ -59,7 +59,11 @@ contract App {
     constructor() { 
         clinicsCnt=0;
     }
- 
+    function getPassHash() external view returns (string memory passHash_){
+        Clinic storage clinic= clinics[msg.sender] ;
+        string memory passHash=clinic.passHash;
+        return (passHash);
+    }
     function validatePassHash(string memory passHash_) external view returns (bool){
         Clinic storage clinic= clinics[msg.sender] ;
         string memory passHash=clinic.passHash;
